@@ -18,12 +18,13 @@ app.post('/', function (req, res, next) {
 
     var email = req.body.email;
     var tipo = req.body.tipo;
-    var sql = `UPDATE  Usuario SET  tipoUsuario_id = ${tipo} where email like ${email}`;
+    var sql = `UPDATE  Usuario SET  tipoUsuario_id = "${tipo}" where email like "${email}"`;
 
     try {
         connection.query(sql, function (err, result) {
 
             if (err) throw err;
+
             else
                 console.log('record inserted');
 
