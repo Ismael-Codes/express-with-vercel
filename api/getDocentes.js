@@ -10,6 +10,7 @@ let result;
 router.get("/", async (req, res) => {
     
     res.setHeader("Access-Control-Allow-Origin", "*");
+    de,mo
     res.header(
         "Access-Control-Allow-Headers",
         "Origin, X-Requested-With, Content-Type, Accept"
