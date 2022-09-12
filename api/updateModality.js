@@ -14,11 +14,15 @@ app.use(bodyParser.json());
 connection.connect();
 
 
+
 app.post('/', function (req, res, next) {
 
-    var email = req.body.email;
-    var tipo = req.body.tipo;
-    var sql = `UPDATE  Usuario SET tipoUsuario_id = "${tipo}" WHERE email LIKE "${email}"`;
+    const id = req.body.id;
+    const nombre = req.body.nombre;
+    const codification = btoa(JSON.stringify(req.body.codification));
+    const config = req.body.config;
+
+    const sql = `UPDATE Modalidad SET nombre = "${nombre}", descripcion = JSON_REPLACE(descripcion, "$.codification", "${codification}"), configuracion = JSON_REPLACE(configuracion, "$.estado", "${config}") WHERE id LIKE "${id}"`;
 
     try {
         connection.query(sql, function (err, result) {
@@ -27,27 +31,25 @@ app.post('/', function (req, res, next) {
 
             else
                 console.log('record inserted');
+            console.log(result);
 
             if (result.affectedRows > 0) {
                 res.json({
                     status: 200,
-                    message: "Tipo de usuario cambiado",
+                    message: req.body,
                 });
             }
             else {
                 res.json({
                     status: 500,
-                    message: "No se pudo cambiar el tipo de usuario",
+                    message: "No se pudo actualizar la modalidad",
                 });
             }
 
-
-
         });
 
-
     } catch (error) {
-        console.error(error);
+        // console.error(error);
         return res.status(500).send("Server error");
     }
 

@@ -27,11 +27,6 @@ router.get("/", async (req, res) => {
             });
         });
 
-        /* res.json({
-            status: 200,
-            message: result,
-        }); */
-
     } catch (error) {
         console.error(error);
         return res.status(500).send("users Server error");

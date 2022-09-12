@@ -1,4 +1,3 @@
-/* POST programming language */
 const express = require("express");
 const router = express.Router();
 const bodyParser = require('body-parser');
@@ -13,34 +12,30 @@ app.use(bodyParser.json());
 
 connection.connect();
 
-
 app.post('/', function (req, res, next) {
 
-    var email = req.body.email;
-    var tipo = req.body.tipo;
-    var sql = `UPDATE  Usuario SET tipoUsuario_id = "${tipo}" WHERE email LIKE "${email}"`;
+    var id = req.body.id;
 
+    var sql = `DELETE FROM Modalidad WHERE id LIKE "${id}" `;
+    let queryRes = 0;
     try {
         connection.query(sql, function (err, result) {
-
             if (err) throw err;
-
-            else
-                console.log('record inserted');
-
+            console.log(result.affectedRows);
             if (result.affectedRows > 0) {
                 res.json({
                     status: 200,
-                    message: "Tipo de usuario cambiado",
+                    data: true,
+                    message: "la modalidad ha sido borrado!!",
                 });
-            }
-            else {
+            } else {
                 res.json({
-                    status: 500,
-                    message: "No se pudo cambiar el tipo de usuario",
-                });
+                    status: 200,
+                    data: false,
+                    message: "No se pudo eliminar la modalidad",
+                }
+                );
             }
-
 
 
         });
@@ -50,12 +45,6 @@ app.post('/', function (req, res, next) {
         console.error(error);
         return res.status(500).send("Server error");
     }
-
-
 });
 
-
-
 module.exports = app;
-
-
