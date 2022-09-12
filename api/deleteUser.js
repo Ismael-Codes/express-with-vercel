@@ -17,8 +17,11 @@ connection.connect();
 app.post('/', function (req, res, next) {
 
     var email = req.body.email;
+    var date = new Date();
+    var timestamp = date.getTime();
 
-    var sql = `delete from Usuario where email like "${email}" `;
+    const sql = `UPDATE Usuario SET tsDeleted = "${timestamp}" WHERE email LIKE "${email}"`;
+
     let queryRes=0;
     try {
         connection.query(sql, function (err, result) {
