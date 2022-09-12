@@ -18,7 +18,17 @@ app.post('/', function (req, res, next) {
 
     var email = req.body.email;
     var tipo = req.body.tipo;
-    var sql = `UPDATE  Usuario SET tipoUsuario_id = "${tipo}" WHERE email LIKE "${email}"`;
+    let config = req.body.config;
+
+    let timestamp = null;
+
+    if (config) {
+        var date = new Date();
+        timestamp = date.getTime();
+    }
+
+
+    var sql = `UPDATE  Usuario SET tipoUsuario_id = "${tipo}", tsDeleted = "${timestamp}" WHERE email LIKE "${email}"`;
 
     try {
         connection.query(sql, function (err, result) {

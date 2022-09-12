@@ -15,9 +15,11 @@ connection.connect();
 app.post('/', function (req, res, next) {
 
     var id = req.body.id;
+    var date = new Date();
+    var timestamp = date.getTime();
 
-    var sql = `DELETE FROM Modalidad WHERE id LIKE "${id}" `;
-    let queryRes = 0;
+    var sql = `UPDATE Modalidad SET tsDeleted = "${timestamp}", configuracion = JSON_REPLACE(configuracion, "$.estado", "${config}") WHERE id LIKE "${id}" `;
+
     try {
         connection.query(sql, function (err, result) {
             if (err) throw err;
