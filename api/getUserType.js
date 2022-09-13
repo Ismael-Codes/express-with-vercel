@@ -5,12 +5,6 @@ connection = require("../db/conf");
 let result;
 
 const app = express();
-//const port = process.env.SERVER_PORT || 8000;
-
-// Add Access Control Allow Origin headers
-
-
-
 
 router.get("/:mail", async (req, res) => {
 
@@ -22,7 +16,7 @@ router.get("/:mail", async (req, res) => {
 
     let email = req.params.mail;
     console.log(email);
-    let query = `SELECT Usuario.tipoUsuario_id, TipoUsuario.nombre AS nombreTipo, Usuario.nombre FROM Usuario, TipoUsuario WHERE email = "${email}" and  Usuario.tipoUsuario_id = TipoUsuario.id `;
+    let query = `SELECT Usuario.tipoUsuario_id, TipoUsuario.nombre AS nombreTipo, Usuario.nombre, Usuario.tsDeleted FROM Usuario, TipoUsuario WHERE email = "${email}" and  Usuario.tipoUsuario_id = TipoUsuario.id `;
 
     try {
         connection.connect();
