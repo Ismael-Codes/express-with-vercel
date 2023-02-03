@@ -1,9 +1,9 @@
 const mysql = require('mysql2');
 
-const connection = mysql.createConnection({
-    host: process.env.PLANETSCALE_DB_HOST,
-    user: process.env.PLANETSCALE_DB_USERNAME,
-    password: process.env.PLANETSCALE_DB_PASSWORD,
+const connection =  mysql.createConnection({
+    host: 'f450gmj9s3zg.us-east-1.psdb.cloud',
+    user: 'j9oh4nt6y0b6',
+    password: 'pscale_pw_uNo98CHS8JH7qHE7belgIfgtofg08qVuHTwWJWh85Hs',
     ssl:{}
 });
 
