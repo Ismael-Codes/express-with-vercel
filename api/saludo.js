@@ -18,7 +18,7 @@ router.get("/", async (req, res) => {
 
     res.json({
       status: 200,
-      message: "server is awake!!!1",
+      message: "server is awake!!!",
     });
   } catch (error) {
     console.error(error);
